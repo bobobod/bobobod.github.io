@@ -7,18 +7,6 @@ tags: tools
 
 ## JanusGraph初识
 
-## 目录
-
-1. #### [简介](#简介)
-
-2. #### [**索引**](#JanusGraph中的索引)
-
-3. #### [事务](#JanusGraph中的事务)
-
-4. #### [缓存](#JanusGraph中的缓存)
-
-5. #### [存储](#JanusGraph数据存储)
-
 ---
 
 > [原文参考](https://zhuanlan.zhihu.com/p/50279477)
