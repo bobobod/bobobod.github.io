@@ -2,7 +2,7 @@
 layout: post
 title: docker搭建redis集群
 date: 2020-11-15
-tags: tools
+tags: redis
 ---
 
 
@@ -17,7 +17,7 @@ tags: tools
 
 *请预先搭建好docker环境，使用docker命令拉取redis镜像文件。*这次一次搭建redis集群尝试多次失败后才成功步骤总结。
 
-1. 构建目录redis/redis-cluster目录层次结构，在redis-cluster目录下添加redis模版文件 redis-cluster.tmpl，内容如下
+#### 1.构建目录redis/redis-cluster目录层次结构，在redis-cluster目录下添加redis模版文件 redis-cluster.tmpl，内容如下
 
 ```txt
 port ${port}
@@ -50,7 +50,7 @@ cluster-require-full-coverage yes
 JedisException: Could not get a resource from the pool
 ```
 
-2. 创建虚拟网卡
+#### 2.创建虚拟网卡
 
 ```bash
 docker network create redis-cluster-net
@@ -58,7 +58,7 @@ docker network create redis-cluster-net
 docker network inspect redis-cluster-net
 ```
 
-3. 使用脚本create构建redis集群目录 
+#### 3.使用脚本create构建redis集群目录 
 
 ```bash
 #!/bin/bash
@@ -126,8 +126,9 @@ case ${com} in
 esac
 ```
 
-4. 使用脚本的build命令创建并执行容器
-5. 查看redis集群状态，都为运行状态则为正常
+#### 4.使用脚本的build命令创建并执行容器
+
+#### 5.查看redis集群状态，都为运行状态则为正常
 
 ```bash
 docker ps
@@ -140,7 +141,7 @@ docker ps
 88d93feaddf1        redis               "docker-entrypoint..."   32 minutes ago      Up 32 minutes       0.0.0.0:7000->7000/tcp, 6379/tcp, 0.0.0.0:17000->17000/tcp   redis-7000
 ```
 
-6. 进入任意一个redis容器的bash终端，并构建redis集群
+#### 6.进入任意一个redis容器的bash终端，并构建redis集群
 
 ```bash
 docker exec -it redis-7000 bash
@@ -149,7 +150,7 @@ redis-cli --cluster create 192.168.244.143:7000 192.168.244.143:7001 192.168.244
 
 ```
 
-7. 查看redis集群状态
+#### 7.查看redis集群状态
 
 ```bash
 // 查看集群信息
@@ -160,7 +161,7 @@ docker exec -it redis-7000 redis-cli -p 7000 cluster nodes
 docker exec -it redis-7000 redis-cli -p 7000 cluster slots
 ```
 
-8. 测试redis集群
+#### 8.测试redis集群
 
 ```bash
 docker exec -it redis-7000 redis-cli -h ip地址 -p 7000 -c 
@@ -171,7 +172,7 @@ set c d
 get c 
 ```
 
-9. 编写java代码连接redis集群
+#### 9.编写java代码连接redis集群
 
 ```java
     public static void main(String[] args) {
